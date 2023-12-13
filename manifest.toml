@@ -1,0 +1,75 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
+packaging_format = 2
+
+id = "planka"
+name = "Planka"
+description.en = "Realtime kanban board for workgroups"
+description.fr = "Tableau Kanban en temps réel pour les groupes de travail"
+
+version = "1.15.2~ynh1"
+
+maintainers = ["eric_G"]
+
+[upstream]
+license = "AGPL-3.0"
+website = "https://planka.app/"
+demo = "https://plankanban.github.io/planka/#/"
+admindoc = "https://docs.planka.cloud/docs/intro/"
+code = "https://github.com/plankanban/planka"
+
+[integration]
+yunohost = ">= 11.2"
+architectures = "all"
+multi_instance = true
+
+ldap = false
+
+sso = false
+
+disk = "50M"
+ram.build = "50M"
+ram.runtime = "50M"
+
+[install]
+    [install.domain]
+    type = "domain"
+
+    [install.init_main_permission]
+    type = "group"
+    default = "visitors"
+
+    [install.admin]
+    type = "user"
+
+    [install.password]
+    type = "password"
+
+[resources]
+
+    [resources.sources]
+
+        [resources.sources.main]
+        url = "https://github.com/plankanban/planka/releases/download/v1.15.2/planka-prebuild-v1.15.2.zip"
+        sha256 = "e823a872779ff500a6e757833d68f707ff0eb497fa3d9baff2bf2b3f9eb99000"
+        autoupdate.strategy = "latest_github_tag"
+
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.permissions]
+    main.url = "/"
+    api.url = "/api"
+    api.allowed = "visitors"
+    api.auth_header = false
+    api.show_tile = false
+    api.protected = true
+
+    [resources.ports]
+    socket.default = 1337
+    [resources.apt]
+    packages = "postgresql, postgresql-contrib"
+
+    [resources.database]
+    type = "postgresql"
