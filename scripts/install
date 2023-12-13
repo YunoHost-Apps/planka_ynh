@@ -48,6 +48,12 @@ ynh_add_systemd_config
 
 yunohost service add $app --description="Realtime kanban board for workgroups" --log="/var/log/$app/$app.log"
 
+# Use logrotate to manage application logfile(s)
+ynh_use_logrotate
+
+# Create a dedicated Fail2Ban config
+ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
+
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
