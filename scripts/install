@@ -16,6 +16,15 @@ firstname=$(yunohost user list --fields firstname --output-as json | jq -r .user
 lastname=$(yunohost user list --fields lastname --output-as json | jq -r .users.$admin.lastname)
 
 #=================================================
+# STORE SETTINGS FROM MANIFEST
+#=================================================
+ynh_script_progression --message="Storing installation settings..." --weight=1
+
+ynh_app_setting_set --app=$app --key=password --value="$password"
+ynh_app_setting_set --app=$app --key=firstname --value=$firstname
+ynh_app_setting_set --app=$app --key=lastname --value=$lastname
+
+#=================================================
 # INSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Installing dependencies..." --weight=10
