@@ -1,5 +1,5 @@
 [Unit]
-Description=Planka
+Description=Planka: Realtime kanban board
 After=network.target
 
 [Service]
