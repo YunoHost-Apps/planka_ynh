@@ -9,6 +9,12 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
+secret=$(ynh_string_random --length=50)
+email=$(ynh_user_get_info --username=$admin --key=mail)
+timezone="$(cat /etc/timezone)"
+firstname=$(yunohost user list --fields firstname --output-as json | jq -r .users.$admin.firstname)
+lastname=$(yunohost user list --fields lastname --output-as json | jq -r .users.$admin.lastname)
+
 upgrade_type=$(ynh_check_app_version_changed)
 
 #=================================================
@@ -28,7 +34,6 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
-	# Download, check integrity, uncompress and patch the source from manifest.toml
 	ynh_setup_source --dest_dir="$install_dir" --keep=".env"
 fi
 
@@ -48,10 +53,8 @@ ynh_add_systemd_config
 
 yunohost service add $app --description="Realtime kanban board for workgroups" --log="/var/log/$app/$app.log"
 
-# Use logrotate to manage application logfile(s)
 ynh_use_logrotate --non-append
 
-# Create a dedicated Fail2Ban config
 ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
 
 #=================================================
