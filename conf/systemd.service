@@ -9,7 +9,7 @@ Group=__APP__
 WorkingDirectory=__INSTALL_DIR__
 Environment="__YNH_NODE_LOAD_PATH__"
 Environment="NODE_ENV=production"
-ExecStart=__YNH_NPM__ start --prod
+ExecStart=__YNH_NODE__ __INSTALL_DIR__/app.js --port=__PORT__
 
 # Sandboxing options to harden security
 # Depending on specificities of your service/app, you may need to tweak these
