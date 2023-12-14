@@ -16,11 +16,19 @@ firstname=$(yunohost user list --fields firstname --output-as json | jq -r .user
 lastname=$(yunohost user list --fields lastname --output-as json | jq -r .users.$admin.lastname)
 
 #=================================================
+# STORE SETTINGS FROM MANIFEST
+#=================================================
+ynh_script_progression --message="Storing installation settings..." --weight=1
+
+ynh_app_setting_set --app=$app --key=password --value="$password"
+ynh_app_setting_set --app=$app --key=firstname --value=$firstname
+ynh_app_setting_set --app=$app --key=lastname --value=$lastname
+
+#=================================================
 # INSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Installing dependencies..." --weight=10
 
-# Install Nodejs
 ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
 
 #=================================================
@@ -30,9 +38,9 @@ ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=1
 
-# Download, check integrity, uncompress and patch the source from manifest.toml
 ynh_setup_source --dest_dir="$install_dir"
 
+chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
 
 #=================================================
@@ -40,13 +48,15 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 ynh_script_progression --message="Adding system configurations related to $app..." --weight=1
 
-# Create a dedicated NGINX config using the conf/nginx.conf template
 ynh_add_nginx_config
 
-# Create a dedicated systemd config
 ynh_add_systemd_config
 
 yunohost service add $app --description="Realtime kanban board for workgroups" --log="/var/log/$app/$app.log"
+
+ynh_use_logrotate
+
+ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
 
 #=================================================
 # APP INITIAL CONFIGURATION
@@ -78,7 +88,6 @@ popd
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-# Start a systemd service
 ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
 
 #=================================================
