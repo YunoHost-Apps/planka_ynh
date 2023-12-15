@@ -53,7 +53,7 @@ yunohost service add $app --description="Realtime kanban board for workgroups" -
 
 ynh_use_logrotate --non-append
 
-ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
+ynh_add_fail2ban_config --logpath="$install_dir/logs/planka.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
 
 #=================================================
 # RECONFIGURE THE APP (UPDATE CONF, APPLY MIGRATIONS...)
