@@ -56,8 +56,6 @@ yunohost service add $app --description="Realtime kanban board for workgroups" -
 
 ynh_use_logrotate
 
-ynh_add_fail2ban_config --logpath="$install_dir/logs/planka.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
-
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
