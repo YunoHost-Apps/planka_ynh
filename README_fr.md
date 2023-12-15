@@ -30,7 +30,7 @@ Suivi de projet open source élégant.
 - InternationalisationCeci est une fausse description des fonctionalités de l'app
 
 
-**Version incluse :** 1.15.2~ynh1
+**Version incluse :** 1.15.2~ynh2
 
 **Démo :** https://plankanban.github.io/planka/#/
 
