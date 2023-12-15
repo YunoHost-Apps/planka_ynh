@@ -79,8 +79,6 @@ pushd $install_dir
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH $ynh_npm run db:init
 popd
 
-ynh_add_fail2ban_config --logpath="$install_dir/logs/planka.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
-
 #=================================================
 # GENERIC FINALIZATION
 #=================================================
@@ -89,6 +87,12 @@ ynh_add_fail2ban_config --logpath="$install_dir/logs/planka.log" --failregex="^(
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
+
+#=================================================
+# ADD FAIL2BAN
+#=================================================
+
+ynh_add_fail2ban_config --logpath="$install_dir/logs/planka.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
 
 #=================================================
 # END OF SCRIPT
