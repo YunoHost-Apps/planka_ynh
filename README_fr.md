@@ -27,7 +27,7 @@ Suivi de projet open source élégant.
 - Personnaliser l'arrière-plan du projet
 - Mises à jour en temps réel
 - Notifications utilisateur
-- InternationalisationCeci est une fausse description des fonctionalités de l'app
+- Internationalisation
 
 
 **Version incluse :** 1.15.2~ynh2
