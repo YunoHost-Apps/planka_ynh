@@ -81,6 +81,8 @@ pushd $install_dir
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH $ynh_npm run db:init
 popd
 
+ynh_add_fail2ban_config --logpath="$install_dir/logs/planka.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
+
 #=================================================
 # GENERIC FINALIZATION
 #=================================================
