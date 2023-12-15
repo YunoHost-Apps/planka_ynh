@@ -54,8 +54,6 @@ ynh_add_systemd_config
 
 yunohost service add $app --description="Realtime kanban board for workgroups" --log="/var/log/$app/$app.log"
 
-ynh_use_logrotate
-
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
