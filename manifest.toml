@@ -50,8 +50,8 @@ ram.runtime = "50M"
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/plankanban/planka/archive/refs/tags/v1.15.4.tar.gz"
-        sha256 = "00d0ddf6a75289182663a447af018d50e53735c3b4355b600071f6d60a2a2f9e"
+        url = "https://github.com/plankanban/planka/releases/download/v1.15.4/planka-prebuild-v1.15.4.zip"
+        sha256 = "e2cb02ba5ed6f75fdd6c42bce2844751a9c9b7ec1a71048dc77f29a4910273ab"
         autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
