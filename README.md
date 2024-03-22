@@ -29,7 +29,7 @@ Elegant open source project tracking.
 - User notifications
 - Internationalization
 
-**Shipped version:** 1.15.7~ynh1
+**Shipped version:** 1.16.0~ynh1
 
 **Demo:** <https://plankanban.github.io/planka/#/>
 
