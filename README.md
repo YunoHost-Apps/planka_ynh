@@ -9,7 +9,7 @@ It shall NOT be edited by hand.
 
 [![Install Planka with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=planka)
 
-*[Read this README is other languages.](./ALL_README.md)*
+*[Read this README in other languages.](./ALL_README.md)*
 
 > *This package allows you to install Planka quickly and simply on a YunoHost server.*  
 > *If you don't have YunoHost, please consult [the guide](https://yunohost.org/install) to learn how to install it.*
@@ -30,7 +30,7 @@ Elegant open source project tracking.
 - Internationalization
 
 
-**Shipped version:** 1.15.7~ynh1
+**Shipped version:** 1.16.1~ynh1
 
 **Demo:** <https://plankanban.github.io/planka/#/>
 
