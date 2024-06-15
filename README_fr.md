@@ -30,7 +30,7 @@ Suivi de projet open source élégant.
 - Internationalisation
 
 
-**Version incluse :** 1.18.1~ynh1
+**Version incluse :** 1.19.0~ynh1
 
 **Démo :** <https://plankanban.github.io/planka/#/>
 
