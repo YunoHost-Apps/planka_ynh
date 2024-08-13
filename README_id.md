@@ -30,7 +30,7 @@ Elegant open source project tracking.
 - Internationalization
 
 
-**Versi terkirim:** 1.20.1~ynh1
+**Versi terkirim:** 1.21.0~ynh1
 
 **Demo:** <https://plankanban.github.io/planka/#/>
 
@@ -42,7 +42,7 @@ Elegant open source project tracking.
 
 - Website aplikasi resmi: <https://planka.app/>
 - Dokumentasi admin resmi: <https://docs.planka.cloud/docs/intro/>
-- Repositori kode aplikasi hulu: <https://github.com/plankanban/planka>
+- Depot kode aplikasi hulu: <https://github.com/plankanban/planka>
 - Gudang YunoHost: <https://apps.yunohost.org/app/planka>
 - Laporkan bug: <https://github.com/YunoHost-Apps/planka_ynh/issues>
 
