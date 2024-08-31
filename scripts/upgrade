@@ -57,8 +57,8 @@ chown $app:$app "$install_dir/.env"
 ynh_script_progression "Installing $app..."
 
 pushd $install_dir
-	ynh_hide_warnings ynh_exec_as_app node_load_PATH npm install
-	ynh_hide_warnings ynh_exec_as_app node_load_PATH npm run db:init
+	ynh_hide_warnings ynh_exec_as_app npm install
+	ynh_hide_warnings ynh_exec_as_app npm run db:init
 popd
 
 #=================================================
