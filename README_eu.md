@@ -5,7 +5,7 @@ EZ editatu eskuz.
 
 # Planka YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/planka.svg)](https://dash.yunohost.org/appci/app/planka) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/planka.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/planka.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/planka.svg)](https://ci-apps.yunohost.org/ci/apps/planka/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/planka.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/planka.maintain.svg)
 
 [![Instalatu Planka YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=planka)
 

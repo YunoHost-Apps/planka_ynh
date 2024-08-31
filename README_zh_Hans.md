@@ -5,7 +5,7 @@
 
 # YunoHost 上的 Planka
 
-[![集成程度](https://dash.yunohost.org/integration/planka.svg)](https://dash.yunohost.org/appci/app/planka) ![工作状态](https://ci-apps.yunohost.org/ci/badges/planka.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/planka.maintain.svg)
+[![集成程度](https://dash.yunohost.org/integration/planka.svg)](https://ci-apps.yunohost.org/ci/apps/planka/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/planka.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/planka.maintain.svg)
 
 [![使用 YunoHost 安装 Planka](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=planka)
 
