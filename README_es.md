@@ -30,7 +30,7 @@ Elegant open source project tracking.
 - Internationalization
 
 
-**Versión actual:** 1.21.1~ynh1
+**Versión actual:** 1.22.0~ynh1
 
 **Demo:** <https://plankanban.github.io/planka/#/>
 
@@ -48,7 +48,7 @@ Elegant open source project tracking.
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/planka_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/planka_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
