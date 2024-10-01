@@ -44,8 +44,6 @@ ynh_config_add_systemd
 yunohost service add $app --description="Realtime kanban board for workgroups" --log="/var/log/$app/$app.log"
 
 #=================================================
-# APP INITIAL CONFIGURATION
-#=================================================
 # ADD A CONFIGURATION
 #=================================================
 ynh_script_progression "Adding $app's configuration..."
