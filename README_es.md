@@ -30,7 +30,7 @@ Elegant open source project tracking.
 - Internationalization
 
 
-**Versión actual:** 1.24.0~ynh1
+**Versión actual:** 1.24.1~ynh1
 
 **Demo:** <https://plankanban.github.io/planka/#/>
 
