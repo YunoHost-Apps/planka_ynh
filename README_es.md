@@ -5,7 +5,9 @@ No se debe editar a mano.
 
 # Planka para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/planka.svg)](https://ci-apps.yunohost.org/ci/apps/planka/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/planka.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/planka.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/planka)](https://ci-apps.yunohost.org/ci/apps/planka/)
+![Estado funcional](https://apps.yunohost.org/badge/state/planka)
+![Estado En Mantención](https://apps.yunohost.org/badge/maintained/planka)
 
 [![Instalar Planka con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=planka)
 
@@ -30,7 +32,7 @@ Elegant open source project tracking.
 - Internationalization
 
 
-**Versión actual:** 1.24.2~ynh1
+**Versión actual:** 1.24.3~ynh1
 
 **Demo:** <https://plankanban.github.io/planka/#/>
 

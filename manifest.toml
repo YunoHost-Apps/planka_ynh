@@ -7,7 +7,7 @@ name = "Planka"
 description.en = "Realtime kanban board for workgroups"
 description.fr = "Tableau Kanban en temps réel pour les groupes de travail"
 
-version = "1.24.2~ynh1"
+version = "1.24.3~ynh1"
 
 maintainers = ["eric_G"]
 
@@ -51,8 +51,8 @@ ram.runtime = "50M"
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/plankanban/planka/releases/download/v1.24.2/planka-prebuild.zip"
-        sha256 = "ae07682ea935eab210001e705a1b29eaea6b750b474a595f29e9c042588320d9"
+        url = "https://github.com/plankanban/planka/releases/download/v1.24.3/planka-prebuild.zip"
+        sha256 = "6d9ff54704a73f07808ebd2e15c19d453c939674f4854b84f2c21a38a296c664"
         autoupdate.strategy = "latest_github_release"
         autoupdate.asset = "^planka-prebuild.zip$"
 
