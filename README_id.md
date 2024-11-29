@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # Planka untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/planka.svg)](https://ci-apps.yunohost.org/ci/apps/planka/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/planka.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/planka.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/planka)](https://ci-apps.yunohost.org/ci/apps/planka/)
+![Status kerja](https://apps.yunohost.org/badge/state/planka)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/planka)
 
 [![Pasang Planka dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=planka)
 
@@ -30,7 +32,7 @@ Elegant open source project tracking.
 - Internationalization
 
 
-**Versi terkirim:** 1.24.2~ynh1
+**Versi terkirim:** 1.24.3~ynh1
 
 **Demo:** <https://plankanban.github.io/planka/#/>
 
