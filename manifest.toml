@@ -7,7 +7,7 @@ name = "Planka"
 description.en = "Realtime kanban board for workgroups"
 description.fr = "Tableau Kanban en temps réel pour les groupes de travail"
 
-version = "1.24.3~ynh1"
+version = "1.24.3~ynh2"
 
 maintainers = ["eric_G"]
 
@@ -19,13 +19,12 @@ admindoc = "https://docs.planka.cloud/docs/intro/"
 code = "https://github.com/plankanban/planka"
 
 [integration]
-yunohost = ">= 11.2.30"
+yunohost = ">= 12.0.9"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
 
 ldap = false
-
 sso = false
 
 disk = "50M"
