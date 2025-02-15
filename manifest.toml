@@ -9,7 +9,7 @@ description.fr = "Tableau Kanban en temps réel pour les groupes de travail"
 
 version = "1.24.4~ynh1"
 
-maintainers = ["eric_G"]
+maintainers = []
 
 [upstream]
 license = "AGPL-3.0"
