@@ -56,6 +56,7 @@ ram.runtime = "50M"
         autoupdate.asset = "^planka-prebuild.zip$"
 
     [resources.system_user]
+    allow_email = true
 
     [resources.install_dir]
 
