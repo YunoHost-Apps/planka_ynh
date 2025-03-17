@@ -50,11 +50,11 @@ ram.runtime = "50M"
 
     [resources.sources]
 
-        [resources.sources.main]
-        url = "https://github.com/plankanban/planka/releases/download/v1.25.1/planka-prebuild.zip"
-        sha256 = "dabce1e0a56c35f5f9ad75e8604fcc0986cafd69f580fce2bfa0fbe758a8f961"
-        autoupdate.strategy = "latest_github_release"
-        autoupdate.asset = "^planka-prebuild.zip$"
+    [resources.sources.main]
+    url = "https://github.com/plankanban/planka/releases/download/v1.25.1/planka-prebuild.zip"
+    sha256 = "dabce1e0a56c35f5f9ad75e8604fcc0986cafd69f580fce2bfa0fbe758a8f961"
+    autoupdate.strategy = "latest_github_release"
+    autoupdate.asset = "^planka-prebuild.zip$"
 
     [resources.system_user]
 
