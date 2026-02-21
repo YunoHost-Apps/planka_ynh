@@ -13,7 +13,7 @@ if ynh_app_upgrading_from_version_before_or_equal_to 1.26.3~ynh1; then
 	ynh_app_setting_delete --key=lastname
 fi
 
-if ynh_app_upgrading_from_version_before_or_equal_to 2.0.0~ynh1; then
+if ynh_app_upgrading_from_version_before_or_equal_to 2.0.3~ynh1; then
 	ynh_app_setting_delete --key=timezone
 	
 	email=$(ynh_user_get_info --username=$admin --key=mail)
