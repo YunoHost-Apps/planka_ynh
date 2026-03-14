@@ -7,13 +7,22 @@
 source /usr/share/yunohost/helpers
 
 secret=$(ynh_string_random --length=50)
-email=$(ynh_user_get_info --username=$admin --key=mail)
-fullname=$(ynh_user_get_info --username=$admin --key=fullname)
-timezone="$(timedatectl show --value --property=Timezone)"
 
 if ynh_app_upgrading_from_version_before_or_equal_to 1.26.3~ynh1; then
 	ynh_app_setting_delete --key=firstname
 	ynh_app_setting_delete --key=lastname
+fi
+
+if ynh_app_upgrading_from_version_before_or_equal_to 2.0.3~ynh1; then
+	ynh_app_setting_delete --key=timezone
+	
+	language='en_US'
+	email=$(ynh_user_get_info --username=$admin --key=mail)
+	fullname=$(ynh_user_get_info --username=$admin --key=fullname)
+	
+	ynh_app_setting_set --key=language --value=$language
+	ynh_app_setting_set --key=email --value=$email
+	ynh_app_setting_set --key=fullname --value=$fullname
 fi
 
 #=================================================

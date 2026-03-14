@@ -7,7 +7,7 @@ name = "Planka"
 description.en = "Realtime kanban board for workgroups"
 description.fr = "Tableau Kanban en temps réel pour les groupes de travail"
 
-version = "2.0.0~ynh1"
+version = "2.0.3~ynh1"
 
 maintainers = []
 
@@ -44,14 +44,21 @@ ram.runtime = "50M"
 
     [install.password]
     type = "password"
+    
+    [install.language]
+    ask.en = "Choose the default application language"
+    ask.fr = "Choisissez la langue par défaut de l'application"
+    type = "select"
+    choices = ["ar_YE", "bg_BG", "ca_ES", "cs_CZ", "da_DK", "de_DE", "el_GR", "en_GB", "en_US", "es_ES", "et_EE", "fa_IR", "fi_FI", "fr_FR", "hu_HU", "id_ID", "it_IT", "ja_JP", "ko_KR", "nl_NL", "pl_PL", "pt_BR", "pt_PT", "ro_RO", "ru_RU", "sk_SK", "sr_Cyrl_RS", "sr_Latn_RS", "sv_SE", "tr_TR", "uk_UA", "uz_UZ", "vi_VN", "zh_CN", "zh_TW"]
+    default = "en_US"
 
 [resources]
 
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/plankanban/planka/releases/download/v2.0.0/planka-prebuild.zip"
-        sha256 = "35322afaf571a53983124be484ab5e4702880aa9541921b8ee4c51ec2dfdac20"
+        url = "https://github.com/plankanban/planka/releases/download/v2.0.3/planka-prebuild.zip"
+        sha256 = "30d3f8d6b499c0e7e97b7c4fb19186705476ac98dcd8f73d880f86e2b73513ad"
         autoupdate.strategy = "latest_github_release"
         autoupdate.asset = "^planka-prebuild.zip$"
     
