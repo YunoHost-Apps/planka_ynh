@@ -84,10 +84,10 @@ ram.runtime = "50M"
     socket.default = 1337
     
     [resources.apt]
-    packages = "postgresql, postgresql-contrib"
+    packages = "postgresql, postgresql-contrib, build-essential"
 
     [resources.database]
-    type = "postgresql"
+    type = "postgresql", build-essential
 
     [resources.nodejs]
     version = "22"
