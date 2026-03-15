@@ -87,7 +87,7 @@ ram.runtime = "50M"
     packages = "postgresql, postgresql-contrib, build-essential"
 
     [resources.database]
-    type = "postgresql", build-essential
+    type = "postgresql"
 
     [resources.nodejs]
     version = "22"
