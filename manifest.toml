@@ -72,7 +72,7 @@ ram.runtime = "50M"
     socket.default = 1337
     
     [resources.apt]
-    packages = "postgresql, postgresql-contrib, build-essential"
+    packages = "postgresql, postgresql-contrib, build-essential, python3-venv"
 
     [resources.database]
     type = "postgresql"
