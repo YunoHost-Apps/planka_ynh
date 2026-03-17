@@ -11,9 +11,8 @@ email=$(ynh_user_get_info --username=$admin --key=mail)
 fullname=$(ynh_user_get_info --username=$admin --key=fullname)
 timezone="$(timedatectl show --value --property=Timezone)"
 
-if ynh_app_upgrading_from_version_before_or_equal_to 1.26.3~ynh1; then
-	ynh_app_setting_delete --key=firstname
-	ynh_app_setting_delete --key=lastname
+if ynh_app_upgrading_from_version_before 1.26.3~ynh2; then
+	ynh_die "Upgrade to 2.x series should be done from the latest 1.x release. Please upgrade Planka with \`sudo yunohost app upgrade ${app} -u https://github.com/YunoHost-Apps/planka_ynh/tree/ca43796909f6b1a3854a74ae4f71630d8ab03ee5\`"
 fi
 
 #=================================================
@@ -24,16 +23,32 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service="$app" --action="stop" --log_path="systemd"
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression "Ensuring downward compatibility..."
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --keep=".env"
+tmpdir=
+if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
+  tmpdir=$(mktemp -d)
+  ynh_script_progression "Backing up user data..."
+  mv $install_dir/public $tmpdir
+  mv $install_dir/private $tmpdir
+  ynh_config_add --template="fixup_due_date.awk" --destination="$tmpdir/fixup_due_date.awk"
+  ynh_delete_file_checksum "$tmpdir/fixup_due_date.awk"
+  ynh_psql_dump_db | awk -f $tmpdir/fixup_due_date.awk > $tmpdir/db.sql
+
+  ynh_script_progression "Upgrading source files..."
+  ynh_setup_source --dest_dir="$install_dir" --keep=".env"
+
+  ynh_script_progression "Restoring user data..."
+  mkdir -p $install_dir/data/{protected,private}
+  mv $tmpdir/public/user-avatars $install_dir/data/protected
+  mv $tmpdir/public/background-images $install_dir/data/protected
+  mv $tmpdir/private/attachments $install_dir/data/private
+else
+  ynh_script_progression "Upgrading source files..."
+  ynh_setup_source --dest_dir="$install_dir" --keep=".env data"
+fi
+
 
 #=================================================
 # UPDATE A CONFIG FILE
@@ -62,8 +77,16 @@ ynh_script_progression "Installing $app..."
 
 pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app npm install
-	ynh_hide_warnings ynh_exec_as_app npm run db:init
+	if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
+	  ynh_hide_warnings ynh_exec_as_app npm run db:upgrade
+	fi
+	ynh_hide_warnings ynh_exec_as_app npm run db:migrate
 popd
+
+if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
+	ynh_psql_db_shell < $tmpdir/db.sql
+	ynh_safe_rm $tmpdir
+fi
 
 #=================================================
 # START SYSTEMD SERVICE
