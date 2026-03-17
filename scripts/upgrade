@@ -42,7 +42,7 @@ if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
   ynh_script_progression "Restoring user data..."
   mkdir -p $install_dir/data/{protected,private}
   mv $tmpdir/public/user-avatars $install_dir/data/protected
-  mv $tmpdir/public/background-images $install_dir/data/protected
+  mv $tmpdir/public/project-background-images $install_dir/data/protected
   mv $tmpdir/private/attachments $install_dir/data/private
 else
   ynh_script_progression "Upgrading source files..."
