@@ -40,24 +40,17 @@ if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
   ynh_setup_source --dest_dir="$install_dir" --keep=".env" --full_replace=1
 
   ynh_script_progression "Restoring user data..."
-  mkdir -p $install_dir/data/{protected,private}
   if [ -d "$tmpdir/public/favicons" ]; then
     mv $tmpdir/public/favicons $install_dir/public
   fi
   if [ -d "$tmpdir/public/user-avatars" ]; then
-    mv $tmpdir/public/user-avatars $install_dir/public
-  fi
-  if [ -d "$tmpdir/public/background-images" ]; then
-    mv $tmpdir/public/background-images $install_dir/public
+    mv $tmpdir/public/user-avatars/. $install_dir/public/user-avatars/
   fi
   if [ -d "$tmpdir/public/project-background-images" ]; then
-    mv $tmpdir/public/project-background-images $install_dir/public
-  fi
-  if [ -d "$tmpdir/public/user-avatars" ]; then
-    mv $tmpdir/private/attachments $install_dir/public
+    mv $tmpdir/public/project-background-images/. $install_dir/public/background-images/
   fi
   if [ -d "$tmpdir/private/attachments" ]; then
-    mv $tmpdir/private/attachments $install_dir/private
+    mv $tmpdir/private/attachments/. $install_dir/private/attachments/
   fi
 else
   ynh_script_progression "Upgrading source files..."
@@ -92,7 +85,8 @@ ynh_script_progression "Installing $app..."
 
 pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app npm install
-  # ynh_die "CU!"
+  
+  ynh_script_progression "Applying DB migrations..."
 	if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
 	  ynh_hide_warnings ynh_exec_as_app npm run db:upgrade
 	fi
@@ -100,8 +94,14 @@ pushd $install_dir
 popd
 
 if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
+  ynh_script_progression "Doing final data shuffling...."
 	ynh_psql_db_shell < $tmpdir/db.sql
 	ynh_safe_rm $tmpdir
+
+  mkdir -p $install_dir/data/{protected,private}
+  mv $install_dir/public/user-avatars $install_dir/data/protected
+  mv $install_dir/public/background-images $install_dir/data/protected
+  mv $install_dir/private/attachments $install_dir/data/private
 fi
 
 #=================================================
