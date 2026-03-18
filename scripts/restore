@@ -30,6 +30,13 @@ ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 ynh_restore "/etc/systemd/system/$app.service"
 systemctl enable "$app.service" --quiet
 
+mkdir -p /var/log/$app
+touch /var/log/$app/$app.log
+chown -R $app: /var/log/$app
+
+ynh_restore "/etc/logrotate.d/$app"
+
+
 yunohost service add "$app" --description="Realtime kanban board for workgroups" --log="/var/log/$app/$app.log"
 
 ynh_restore "/etc/fail2ban/jail.d/$app.conf"

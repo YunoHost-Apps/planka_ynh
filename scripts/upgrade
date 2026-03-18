@@ -9,9 +9,8 @@ source /usr/share/yunohost/helpers
 secret=$(ynh_string_random --length=50)
 email=$(ynh_user_get_info --username=$admin --key=mail)
 fullname=$(ynh_user_get_info --username=$admin --key=fullname)
-timezone="$(timedatectl show --value --property=Timezone)"
 
-if ynh_app_upgrading_from_version_before 1.26.3~ynh2; then
+if ynh_app_upgrading_from_version_before 1.26.2~ynh1; then
 	ynh_die "Upgrade to 2.x series should be done from the latest 1.x release. Please upgrade Planka with \`sudo yunohost app upgrade ${app} -u https://github.com/YunoHost-Apps/planka_ynh/tree/ca43796909f6b1a3854a74ae4f71630d8ab03ee5\`"
 fi
 
@@ -30,23 +29,15 @@ tmpdir=
 if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
   tmpdir=$(mktemp -d)
   ynh_script_progression "Backing up user data..."
-  mv $install_dir/public $tmpdir
-  mv $install_dir/private $tmpdir
   ynh_config_add --template="fixup_due_date.awk" --destination="$tmpdir/fixup_due_date.awk"
   ynh_delete_file_checksum "$tmpdir/fixup_due_date.awk"
   ynh_psql_dump_db | awk -f $tmpdir/fixup_due_date.awk > $tmpdir/db.sql
 
   ynh_script_progression "Upgrading source files..."
-  ynh_setup_source --dest_dir="$install_dir" --keep=".env"
-
-  ynh_script_progression "Restoring user data..."
-  mkdir -p $install_dir/data/{protected,private}
-  mv $tmpdir/public/user-avatars $install_dir/data/protected
-  mv $tmpdir/public/project-background-images $install_dir/data/protected
-  mv $tmpdir/private/attachments $install_dir/data/private
+  ynh_setup_source --dest_dir="$install_dir" --keep=".env private/attachments public/user-avatars public/favicons public/project-background-images" --full_replace=1
 else
   ynh_script_progression "Upgrading source files..."
-  ynh_setup_source --dest_dir="$install_dir" --keep=".env data"
+  ynh_setup_source --dest_dir="$install_dir" --keep=".env data" --full_replace=1
 fi
 
 
@@ -66,9 +57,11 @@ ynh_config_add_nginx
 
 ynh_config_add_systemd
 
+ynh_config_add_logrotate
+
 yunohost service add "$app" --description="Realtime kanban board for workgroups" --log="/var/log/$app/$app.log"
 
-ynh_config_add_fail2ban --logpath="$install_dir/logs/planka.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
+ynh_config_add_fail2ban --logpath="/var/log/$app/$app.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
 
 #=================================================
 # INSTALL PLANKA
@@ -77,6 +70,8 @@ ynh_script_progression "Installing $app..."
 
 pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app npm install
+  
+  ynh_script_progression "Applying DB migrations..."
 	if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
 	  ynh_hide_warnings ynh_exec_as_app npm run db:upgrade
 	fi
@@ -84,8 +79,15 @@ pushd $install_dir
 popd
 
 if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
+  ynh_script_progression "Doing final data shuffling...."
 	ynh_psql_db_shell < $tmpdir/db.sql
 	ynh_safe_rm $tmpdir
+
+  mkdir -p $install_dir/data/{protected,private}
+  mv $install_dir/public/user-avatars $install_dir/data/protected
+  mv $install_dir/public/background-images $install_dir/data/protected
+  mv $install_dir/private/attachments $install_dir/data/private
+  chown -R $app:$app $install_dir/data
 fi
 
 #=================================================
@@ -93,7 +95,7 @@ fi
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="start" --log_path="systemd"
+ynh_systemctl --service="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT
