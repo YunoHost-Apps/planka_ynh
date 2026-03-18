@@ -1,3 +1,4 @@
+# copied from https://docs.planka.cloud/docs/upgrade-to-v2/manual
 BEGIN { in_copy=0 }
   /^COPY public\.card/ {
     split($0, a, "\\(|\\)");
@@ -14,5 +15,5 @@ BEGIN { in_copy=0 }
     if(val=="t") val="TRUE";
     else if(val=="f") val="FALSE";
     else next;
-    printf "UPDATE card SET is_due_completed = %s WHERE id = ''%s'';\n", val, id
+    printf "UPDATE card SET is_due_completed = %s WHERE id = '%s';\n", val, id
   }

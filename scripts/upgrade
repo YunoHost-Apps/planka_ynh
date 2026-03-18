@@ -9,7 +9,6 @@ source /usr/share/yunohost/helpers
 secret=$(ynh_string_random --length=50)
 email=$(ynh_user_get_info --username=$admin --key=mail)
 fullname=$(ynh_user_get_info --username=$admin --key=fullname)
-timezone="$(timedatectl show --value --property=Timezone)"
 
 if ynh_app_upgrading_from_version_before 1.26.2~ynh1; then
 	ynh_die "Upgrade to 2.x series should be done from the latest 1.x release. Please upgrade Planka with \`sudo yunohost app upgrade ${app} -u https://github.com/YunoHost-Apps/planka_ynh/tree/ca43796909f6b1a3854a74ae4f71630d8ab03ee5\`"
@@ -47,10 +46,10 @@ if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
     mv $tmpdir/public/user-avatars $install_dir/public
   fi
   if [ -d "$tmpdir/public/project-background-images" ]; then
-    mv $tmpdir/public/project-background-images/* $install_dir/public/background-images/
+    mv $tmpdir/public/project-background-images $install_dir/public
   fi
   if [ -d "$tmpdir/private/attachments" ]; then
-    mv $tmpdir/private/attachments $install_dir/private
+    mv "$tmpdir/private/attachments" "$install_dir/private"
   fi
 else
   ynh_script_progression "Upgrading source files..."
@@ -74,9 +73,11 @@ ynh_config_add_nginx
 
 ynh_config_add_systemd
 
+ynh_config_add_logrotate
+
 yunohost service add "$app" --description="Realtime kanban board for workgroups" --log="/var/log/$app/$app.log"
 
-ynh_config_add_fail2ban --logpath="$install_dir/logs/planka.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
+ynh_config_add_fail2ban --logpath="/var/log/$app/$app.log" --failregex="^(.*) Invalid (email or username:|password!) (\"(.*)\"!)? ?\(IP: <ADDR>\)$"
 
 #=================================================
 # INSTALL PLANKA
@@ -85,7 +86,6 @@ ynh_script_progression "Installing $app..."
 
 pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app npm install
-  ynh_die "CU!"
   
   ynh_script_progression "Applying DB migrations..."
 	if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
@@ -110,7 +110,7 @@ fi
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="start" --log_path="systemd"
+ynh_systemctl --service="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT
