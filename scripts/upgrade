@@ -29,30 +29,12 @@ tmpdir=
 if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
   tmpdir=$(mktemp -d)
   ynh_script_progression "Backing up user data..."
-  mv $install_dir/public $tmpdir
-  mv $install_dir/private $tmpdir
   ynh_config_add --template="fixup_due_date.awk" --destination="$tmpdir/fixup_due_date.awk"
   ynh_delete_file_checksum "$tmpdir/fixup_due_date.awk"
   ynh_psql_dump_db | awk -f $tmpdir/fixup_due_date.awk > $tmpdir/db.sql
 
   ynh_script_progression "Upgrading source files..."
-  ynh_setup_source --dest_dir="$install_dir" --keep=".env" --full_replace=1
-
-  ynh_script_progression "Restoring user data..."
-  if [ -d "$tmpdir/public/favicons" ]; then
-    mv $tmpdir/public/favicons $install_dir/public
-  fi
-  if [ -d "$tmpdir/public/user-avatars" ]; then
-    mv $tmpdir/public/user-avatars $install_dir/public
-  fi
-  if [ -d "$tmpdir/public/project-background-images" ]; then
-    mv $tmpdir/public/project-background-images $install_dir/public
-  fi
-  if [ -d "$tmpdir/private/attachments" ]; then
-    ls -la $tmpdir/private
-    ls -la $tmpdir/private/attachments
-    mv "$tmpdir/private/attachments" "$install_dir/private"
-  fi
+  ynh_setup_source --dest_dir="$install_dir" --keep=".env private/attachments public/user-avatars public/favicons public/project-background-images" --full_replace=1
 else
   ynh_script_progression "Upgrading source files..."
   ynh_setup_source --dest_dir="$install_dir" --keep=".env data" --full_replace=1
