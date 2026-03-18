@@ -85,6 +85,7 @@ ynh_script_progression "Installing $app..."
 
 pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app npm install
+  ynh_die "CU!"
   
   ynh_script_progression "Applying DB migrations..."
 	if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
