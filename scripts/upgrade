@@ -11,7 +11,7 @@ email=$(ynh_user_get_info --username=$admin --key=mail)
 fullname=$(ynh_user_get_info --username=$admin --key=fullname)
 timezone="$(timedatectl show --value --property=Timezone)"
 
-if ynh_app_upgrading_from_version_before 1.26.3~ynh2; then
+if ynh_app_upgrading_from_version_before 1.26.2~ynh1; then
 	ynh_die "Upgrade to 2.x series should be done from the latest 1.x release. Please upgrade Planka with \`sudo yunohost app upgrade ${app} -u https://github.com/YunoHost-Apps/planka_ynh/tree/ca43796909f6b1a3854a74ae4f71630d8ab03ee5\`"
 fi
 
@@ -37,16 +37,31 @@ if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
   ynh_psql_dump_db | awk -f $tmpdir/fixup_due_date.awk > $tmpdir/db.sql
 
   ynh_script_progression "Upgrading source files..."
-  ynh_setup_source --dest_dir="$install_dir" --keep=".env"
+  ynh_setup_source --dest_dir="$install_dir" --keep=".env" --full_replace=1
 
   ynh_script_progression "Restoring user data..."
   mkdir -p $install_dir/data/{protected,private}
-  mv $tmpdir/public/user-avatars $install_dir/data/protected
-  mv $tmpdir/public/project-background-images $install_dir/data/protected
-  mv $tmpdir/private/attachments $install_dir/data/private
+  if [ -d "$tmpdir/public/favicons" ]; then
+    mv $tmpdir/public/favicons $install_dir/public
+  fi
+  if [ -d "$tmpdir/public/user-avatars" ]; then
+    mv $tmpdir/public/user-avatars $install_dir/public
+  fi
+  if [ -d "$tmpdir/public/background-images" ]; then
+    mv $tmpdir/public/background-images $install_dir/public
+  fi
+  if [ -d "$tmpdir/public/project-background-images" ]; then
+    mv $tmpdir/public/project-background-images $install_dir/public
+  fi
+  if [ -d "$tmpdir/public/user-avatars" ]; then
+    mv $tmpdir/private/attachments $install_dir/public
+  fi
+  if [ -d "$tmpdir/private/attachments" ]; then
+    mv $tmpdir/private/attachments $install_dir/private
+  fi
 else
   ynh_script_progression "Upgrading source files..."
-  ynh_setup_source --dest_dir="$install_dir" --keep=".env data"
+  ynh_setup_source --dest_dir="$install_dir" --keep=".env data" --full_replace=1
 fi
 
 
@@ -77,7 +92,7 @@ ynh_script_progression "Installing $app..."
 
 pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app npm install
-  ynh_die "CU!"
+  # ynh_die "CU!"
 	if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
 	  ynh_hide_warnings ynh_exec_as_app npm run db:upgrade
 	fi
