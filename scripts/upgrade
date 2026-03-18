@@ -49,6 +49,8 @@ if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
     mv $tmpdir/public/project-background-images $install_dir/public
   fi
   if [ -d "$tmpdir/private/attachments" ]; then
+    ls -la $tmpdir/private
+    ls -la $tmpdir/private/attachments
     mv "$tmpdir/private/attachments" "$install_dir/private"
   fi
 else
@@ -103,6 +105,7 @@ if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
   mv $install_dir/public/user-avatars $install_dir/data/protected
   mv $install_dir/public/background-images $install_dir/data/protected
   mv $install_dir/private/attachments $install_dir/data/private
+  chown -R $app:$app $install_dir/data
 fi
 
 #=================================================
