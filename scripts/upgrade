@@ -44,13 +44,13 @@ if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
     mv $tmpdir/public/favicons $install_dir/public
   fi
   if [ -d "$tmpdir/public/user-avatars" ]; then
-    mv $tmpdir/public/user-avatars/. $install_dir/public/user-avatars/
+    mv $tmpdir/public/user-avatars $install_dir/public
   fi
   if [ -d "$tmpdir/public/project-background-images" ]; then
-    mv $tmpdir/public/project-background-images/. $install_dir/public/background-images/
+    mv $tmpdir/public/project-background-images/* $install_dir/public/background-images/
   fi
   if [ -d "$tmpdir/private/attachments" ]; then
-    mv $tmpdir/private/attachments/. $install_dir/private/attachments/
+    mv $tmpdir/private/attachments $install_dir/private
   fi
 else
   ynh_script_progression "Upgrading source files..."
