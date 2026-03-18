@@ -11,7 +11,7 @@ email=$(ynh_user_get_info --username=$admin --key=mail)
 fullname=$(ynh_user_get_info --username=$admin --key=fullname)
 
 if ynh_app_upgrading_from_version_before 1.26.2~ynh1; then
-	ynh_die "Upgrade to 2.x series should be done from the latest 1.x release. Please upgrade Planka with \`sudo yunohost app upgrade ${app} -u https://github.com/YunoHost-Apps/planka_ynh/tree/ca43796909f6b1a3854a74ae4f71630d8ab03ee5\`"
+	ynh_die "Upgrade to 2.x series should be done from the latest 1.x release. Please upgrade Planka with \`yunohost app upgrade ${app} -u https://github.com/YunoHost-Apps/planka_ynh/tree/ca43796909f6b1a3854a74ae4f71630d8ab03ee5\`"
 fi
 
 #=================================================
