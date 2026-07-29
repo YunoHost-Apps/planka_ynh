@@ -14,8 +14,8 @@ maintainers = []
 [upstream]
 license = "AGPL-3.0"
 website = "https://planka.app/"
-demo = "https://plankanban.github.io/planka/#/"
-admindoc = "https://docs.planka.cloud/docs/intro/"
+demo = "https://community.demo.planka.cloud/login#emailOrUsername=pm1%40demo.com&password=DemoPass123!"
+admindoc = "https://docs.planka.cloud/docs/welcome"
 code = "https://github.com/plankanban/planka"
 
 [integration]
