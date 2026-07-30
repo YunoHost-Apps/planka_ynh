@@ -12,7 +12,8 @@ version = "2.1.0~ynh1"
 maintainers = []
 
 [upstream]
-license = "other"
+license = "LicenseRef-Planka-Community-License-1"
+license_url = "https://github.com/plankanban/planka/blob/master/LICENSE.md"
 website = "https://planka.app/"
 demo = "https://plankanban.github.io/planka/#/"
 admindoc = "https://docs.planka.cloud/docs/intro/"
