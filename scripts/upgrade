@@ -37,7 +37,7 @@ if ynh_app_upgrading_from_version_before 2.0.3~ynh1; then
   ynh_setup_source --dest_dir="$install_dir" --keep=".env private/attachments public/user-avatars public/favicons public/project-background-images" --full_replace=1
 else
   ynh_script_progression "Upgrading source files..."
-  ynh_setup_source --dest_dir="$install_dir" --keep=".env data" --full_replace=1
+  ynh_setup_source --dest_dir="$install_dir" --keep=".env data terms/custom" --full_replace=1
 fi
 
 
