@@ -60,6 +60,19 @@ ynh_script_progression "Installing $app..."
 pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app npm install
 	ynh_hide_warnings ynh_exec_as_app npm run db:init
+	ynh_exec_as_app /usr/bin/expect <<EOF
+set timeout 30
+spawn npm run db:create-admin-user
+expect "Email: "
+send -- "$email\r"
+expect "Password: "
+send -- "$password\r"
+expect "Name: "
+send -- "$fullname\r"
+expect "Username (optional): "
+send -- "$admin\r"
+expect eof
+EOF
 popd
 
 #=================================================
