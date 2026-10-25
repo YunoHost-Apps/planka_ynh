@@ -7,7 +7,7 @@ name = "Planka"
 description.en = "Realtime kanban board for workgroups"
 description.fr = "Tableau Kanban en temps réel pour les groupes de travail"
 
-version = "2.2.1~ynh1"
+version = "2.2.1~ynh2"
 
 maintainers = []
 
