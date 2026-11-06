@@ -20,7 +20,7 @@ admindoc = "https://docs.planka.cloud/docs/welcome"
 code = "https://github.com/plankanban/planka"
 
 [integration]
-yunohost = ">= 12.1.38"
+yunohost = ">= 12.1.40"
 helpers_version = "2.1"
 architectures = ["amd64", "arm64", "armhf"]
 multi_instance = true
@@ -80,4 +80,4 @@ ram.runtime = "50M"
     type = "postgresql"
 
     [resources.nodejs]
-    version = "22"
+    version = "24"
