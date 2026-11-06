@@ -7,7 +7,7 @@ name = "Planka"
 description.en = "Realtime kanban board for workgroups"
 description.fr = "Tableau Kanban en temps réel pour les groupes de travail"
 
-version = "2.2.1~ynh2"
+version = "2.3.1~ynh1"
 
 maintainers = []
 
@@ -20,7 +20,7 @@ admindoc = "https://docs.planka.cloud/docs/welcome"
 code = "https://github.com/plankanban/planka"
 
 [integration]
-yunohost = ">= 12.1.38"
+yunohost = ">= 12.1.40"
 helpers_version = "2.1"
 architectures = ["amd64", "arm64", "armhf"]
 multi_instance = true
@@ -51,8 +51,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/plankanban/planka/releases/download/v2.2.1/planka-prebuild.zip"
-    sha256 = "f3d582a15edbda53e6cb517069149e7c2385f8593f3efa45f20eb59af2468b2b"
+    url = "https://github.com/plankanban/planka/releases/download/v2.3.1/planka-prebuild.zip"
+    sha256 = "6e4d28e96d229d58f554567f5a40b7c20bd0a8ce6be2c47d1aaa168f95b9e0a4"
     autoupdate.strategy = "latest_github_release"
     autoupdate.asset = "^planka-prebuild.zip$"
     autoupdate.version_regex = "v(\\d+\\.\\d+\\.\\d+)"
@@ -74,10 +74,10 @@ ram.runtime = "50M"
     socket.default = 1337
     
     [resources.apt]
-    packages = "postgresql, postgresql-contrib, build-essential, python3-venv"
+    packages = "postgresql, postgresql-contrib, build-essential, python3-venv, expect"
 
     [resources.database]
     type = "postgresql"
 
     [resources.nodejs]
-    version = "22"
+    version = "24"
